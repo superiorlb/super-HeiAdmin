@@ -1,0 +1,32 @@
+{
+  "name": "heiadmin",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --mode development",
+    "prod": "vite --mode production",
+    "build:dev": "vite build --mode development",
+    "build:prod": "vite build --mode production",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.0.6",
+    "axios": "^0.27.2",
+    "echarts": "^5.3.3",
+    "element-plus": "^2.2.9",
+    "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.0.16",
+    "screenfull": "^6.0.2",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.0.0",
+    "node-sass": "^7.0.1",
+    "sass": "^1.54.0",
+    "sass-loader": "^13.0.2",
+    "vite": "^3.0.0"
+  }
+}

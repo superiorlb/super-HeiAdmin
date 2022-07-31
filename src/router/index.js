@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { getToken } from '../utils/token'
 const isRouter = (url, next) => {
-    1 ? next() : next('home')
+    const token = getToken() || null
+    token ? next() : next('/login')
 }
 export const childrenRoutes = [
     {
@@ -114,8 +116,9 @@ const router = createRouter({
     routes,
     history: createWebHistory()
 })
-// router.beforeEach(async (to, from, next) => {
-//     if (to.matched.length === 0) next('/404')
+// router.beforeEach((to, from, next) => {
+//     if (!token && to.path !== '/login') next('/login')
+//     else if (token && to.path === '/login') false
 //     else next()
 // })
 export default router

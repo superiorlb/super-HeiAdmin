@@ -3,18 +3,17 @@ import Cookies from 'js-cookie'
  * 设置token
  * @param {*} token token信息
  * @param {*} name 存储名字
+ * @param {*} expires 过期时间
  */
-export const setToken = (token, name = 'token') => {
-    Cookies.set(name, token)
+export const setToken = (token, name = 'token', expires = 2) => {
+    Cookies.set(name, token, { expires })
 }
 
 /**
  * 获取token
  * @param {*} name 要获取的存储名字
  */
-export const getToken = (name = 'token') => {
-    Cookies.get(name)
-}
+export const getToken = (name = 'token') => Cookies.get(name)
 
 /**
  * 

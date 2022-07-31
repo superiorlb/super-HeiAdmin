@@ -11,3 +11,7 @@ export const getMessageList = () => request({
     url: '/message/list',
     method: 'get',
 })
+export const login = () => request({
+    url: '/login',
+    method: 'post',
+})

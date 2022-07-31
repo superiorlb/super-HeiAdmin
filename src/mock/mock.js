@@ -1,7 +1,7 @@
 import { Random, setup, mock } from "mockjs";
 const Base_Url = 'http://localhost:4000'
 setup({
-    timeout: 2000
+    timeout: 1000
 })
 
 const adminData = []
@@ -17,6 +17,12 @@ for (let i = 0; i < 100; i++) {
     adminData.push(obj)
 }
 
+mock(`${Base_Url}/admin/list`, 'get', {
+    msg: '请求成功',
+    code: 200,
+    data: adminData
+})
+
 const roleData = []
 for (let i = 0; i < 30; i++) {
     const obj = {
@@ -30,22 +36,6 @@ for (let i = 0; i < 30; i++) {
     }
     roleData.push(obj)
 }
-const messageData = []
-for (let i = 0; i < 30; i++) {
-    const obj = {
-        name: Random.cname(),
-        date: Random.datetime(),
-        content: Random.paragraph(),
-        is:true
-    }
-    messageData.push(obj)
-}
-
-mock(`${Base_Url}/admin/list`, 'get', {
-    msg: '请求成功',
-    code: 200,
-    data: adminData
-})
 
 mock(`${Base_Url}/role/list`, 'get', {
     msg: '请求成功',
@@ -53,8 +43,31 @@ mock(`${Base_Url}/role/list`, 'get', {
     data: roleData
 })
 
+const messageData = []
+for (let i = 0; i < 30; i++) {
+    const obj = {
+        name: Random.cname(),
+        date: Random.datetime(),
+        content: Random.paragraph(),
+        is: true
+    }
+    messageData.push(obj)
+}
+
 mock(`${Base_Url}/message/list`, 'get', {
     msg: '请求成功',
     code: 200,
     data: messageData
+})
+
+const login = {
+    token: Random.guid(),
+    name: Random.name(),
+    id: Random.id(),
+    time:Random.now()
+}
+mock(`${Base_Url}/login`, 'post', {
+    msg: '登录成功',
+    code: 200,
+    data: login
 })

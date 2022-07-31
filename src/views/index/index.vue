@@ -105,7 +105,7 @@
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item command="user">查看</el-dropdown-item>
-                <el-dropdown-item command="2">退出登录</el-dropdown-item>
+                <el-dropdown-item command="/login">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -131,6 +131,8 @@ import { childrenRoutes } from '@/router/index'
 import CalendarDrawer from '@/components/drawer/calendarDrawer.vue';
 import screenfull from 'screenfull';
 import { getMessageList } from '../../api';
+import { removeToken } from '../../utils/token';
+import { useTokenStore } from '../../store/index';
 const activeMenu = ref('')
 const tagList = ref([])
 const route = useRoute()
@@ -143,6 +145,7 @@ const activeBoxStyle = reactive({
   transform: 'translateX(0px)',
 })
 const count = ref(0)
+const store = useTokenStore()
 const getCount = async () => {
   const res = await getMessageList()
   count.value = res.data.length
@@ -153,6 +156,9 @@ const handelOff = () => {
 }
 
 const handleSelect = (path, flag) => {
+  if (path === '/login') {
+    loginOut()
+  }
   childrenRoutes.forEach(item => {
     if (item.path === path) {
       const Route = {
@@ -251,6 +257,10 @@ const handleClose = (e) => {
 }
 const handleScreenFull = () => {
   screenfull.toggle()
+}
+const loginOut = () => {
+  removeToken()
+  store.setToken(null)
 }
 </script>
 <style scoped lang="scss">

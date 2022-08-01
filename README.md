@@ -10,7 +10,7 @@
 npm install
 ```
 
-
+## 本地开发环境启动命令，默认打开 http://localhost:4000
 
 **登录账号/密码：admin/123456**
 

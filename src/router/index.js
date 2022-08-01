@@ -89,7 +89,7 @@ export const childrenRoutes = [
 const routes = [
     {
         path: '/',
-        component: () => import('../views/index/index.vue'),
+        component: () => import('../views/layout/index.vue'),
         redirect: 'home',
         children: [
             ...childrenRoutes

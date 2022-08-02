@@ -41,90 +41,69 @@
             </el-card>
         </el-collapse-item>
     </el-collapse>
-    <el-table :data="tableData" border style="width: 100%;margin:15px 0">
-        <el-table-column type="index" label="index" width="80" align="center" />
-        <el-table-column prop="date" label="Date" width="180" align="center" />
-        <el-table-column prop="name" label="Name" width="180" align="center" />
-        <el-table-column prop="address" label="Address" align="center" />
-        <el-table-column prop="address" label="Address" align="center" />
-        <el-table-column prop="address" label="Address" align="center" />
+    <el-table v-loading="loading" :data="tableData" border style="width: 100%;margin:15px 0">
+        <el-table-column type="index" label="编号" width="80" align="center" />
+        <el-table-column prop="orderSn" label="订单编号" width="180" align="center" />
+        <el-table-column prop="time" label="下单时间" width="180" align="center" />
+        <el-table-column label="订单金额" align="center">
+            <template #="scope">
+                {{ scope.row.money + '￥' }}
+            </template>
+        </el-table-column>
+        <el-table-column prop="name" label="用户名称" align="center" />
+        <el-table-column prop="address" label="收货地址" align="center" />
         <el-table-column label="操作" align="center">
             <template #="scope">
-                <el-button-group>
-                    <el-button type="primary" :icon="View" />
-                </el-button-group>
+                <el-button size="small" type="primary" :icon="View" />
             </template>
         </el-table-column>
     </el-table>
     <div class="pagination">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :page-sizes="[1, 2, 3, 4]"
-            layout="total, sizes, prev, pager, next, jumper" :total="tableData.length" @size-change="handleSizeChange"
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :page-sizes="[10, 20, 30, 40]"
+            layout="total, sizes, prev, pager, next, jumper" :total="list.length" @size-change="handleSizeChange"
             @current-change="handleCurrentChange" />
     </div>
 </template>
 <script setup>
-import { reactive, ref } from 'vue'
-import { Search, Brush,View } from '@element-plus/icons-vue'
+import { reactive, ref, onMounted, watch } from 'vue'
+import { Search, Brush, View } from '@element-plus/icons-vue'
+import { getOrderList } from '../../api/index.js';
 const formInline = reactive({
     user: '',
     region: '',
     value2: ''
 })
 const currentPage = ref(1)
-const pageSize = ref(2)
-const title = ref('')
-const tableData = ref([
-    {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-])
+const pageSize = ref(10)
+const tableData = ref([])
+const list = ref([])
+const loading = ref(false)
 const onSubmit = () => {
     console.log('search');
 }
 const handleSizeChange = (val) => {
-    console.log(`${val} items per page`)
+    pageSize.value = val
 }
 const handleCurrentChange = (val) => {
-    console.log(`current page: ${val}`)
+    currentPage.value = val
 }
 
+const getList = async () => {
+    loading.value = true
+    const res = await getOrderList()
+    loading.value = false
+    list.value = res.data
+    handelTableData()
+}
+onMounted(getList())
+const handelTableData = () => {
+    const start = pageSize.value * (currentPage.value - 1)
+    const end = pageSize.value * currentPage.value
+    tableData.value = list.value.slice(start, end)
+}
+watch([pageSize, currentPage], () => {
+    handelTableData()
+})
 </script>
 <style scoped lang="scss">
 .search {

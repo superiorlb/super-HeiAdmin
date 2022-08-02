@@ -10,7 +10,8 @@
           </el-icon>
         </div>
         <el-menu active-text-color="#409eff" background-color="#fff" class="el-menu-vertical-demo"
-          :default-active="activeMenu" text-color="#000" unique-opened router :collapse="off" @select="handleSelect">
+          :default-active="activeMenu" text-color="#000" unique-opened router :collapse="off"
+          @select="handleSelect($event)">
           <el-menu-item index="home">
             <el-icon>
               <Odometer />
@@ -39,7 +40,6 @@
                 </el-icon>
                 <span>菜单管理</span>
               </template>
-
             </el-menu-item>
             <el-menu-item index="role">
               <template #title>
@@ -79,15 +79,17 @@
     </el-aside>
     <el-container>
       <el-header>
-        <div class="navTab">
-          <span v-for="(item, index) in tagList" :key="index" @click="changTab(item, index)" ref="spanList">
-            {{ item.title }}
-            <el-icon @click.stop="closeTab(item.path, index)" v-show="tagList.length > 1">
-              <Close />
-            </el-icon>
-          </span>
-          <div class="box" :style="activeBoxStyle"></div>
-        </div>
+        <el-scrollbar ref="scrollbarRef">
+          <div class="navTab">
+            <span v-for="(item, index) in tagList" :key="index" @click="changTab(item, index)" ref="spanList">
+              {{ item.title }}
+              <el-icon @click.stop="closeTab(item.path, index)" v-show="tagList.length > 1">
+                <Close />
+              </el-icon>
+            </span>
+            <div class="box" :style="activeBoxStyle"></div>
+          </div>
+        </el-scrollbar>
         <div class="user">
           <el-badge :value="count ? count : ''">
             <el-icon :size="24" @click="handleSelect('message', true)">
@@ -125,143 +127,148 @@
   </el-container>
 </template>
 <script setup>
-import { useRoute, useRouter } from 'vue-router';
-import { ref, nextTick, reactive, onMounted } from 'vue';
-import { childrenRoutes } from '@/router/index'
-import CalendarDrawer from '@/components/drawer/calendarDrawer.vue';
-import screenfull from 'screenfull';
-import { getMessageList } from '../../api';
-import { removeToken } from '../../utils/token';
-import { useTokenStore } from '../../store/index';
-const activeMenu = ref('')
-const tagList = ref([])
-const route = useRoute()
-const router = useRouter()
-const off = ref(false)
-const spanList = ref()
-const drawer = ref(false)
+import { useRoute, useRouter } from "vue-router";
+import { ref, nextTick, reactive, onMounted } from "vue";
+import { childrenRoutes } from "@/router/index";
+import CalendarDrawer from "@/components/drawer/calendarDrawer.vue";
+import screenfull from "screenfull";
+import { getMessageList } from "../../api";
+import { removeToken } from "../../utils/token";
+import { useTokenStore } from "../../store/index";
+const activeMenu = ref("");
+const tagList = ref([]);
+const route = useRoute();
+const router = useRouter();
+const off = ref(false);
+const spanList = ref();
+const drawer = ref(false);
 const activeBoxStyle = reactive({
-  width: '0',
-  transform: 'translateX(0px)',
-})
-const count = ref(0)
-const store = useTokenStore()
+  width: "0",
+  transform: "translateX(0px)",
+});
+const count = ref(0);
+const store = useTokenStore();
+const scrollbarRef = ref()
+
 const getCount = async () => {
-  const res = await getMessageList()
-  count.value = res.data.length
-}
-onMounted(getCount())
+  const res = await getMessageList();
+  count.value = res.data.length;
+};
+onMounted(getCount());
 const handelOff = () => {
-  off.value = !off.value
-}
+  off.value = !off.value;
+};
 
 const handleSelect = (path, flag) => {
-  if (path === '/login') {
-    loginOut()
+  if (path === "/login") {
+    loginOut();
   }
-  childrenRoutes.forEach(item => {
+  childrenRoutes.forEach((item) => {
     if (item.path === path) {
       const Route = {
         path,
-        title: item.meta.title
-      }
-      tagList.value.push(Route)
-      sessionStorage.setItem('refreshTab', JSON.stringify(Route))
+        title: item.meta.title,
+      };
+      tagList.value.push(Route);
+      sessionStorage.setItem("refreshTab", JSON.stringify(Route));
     }
-  })
-  const is = {}
+  });
+  const is = {};
   tagList.value = tagList.value.reduce((arr, item) => {
-    is[item.path] ? null : (is[item.path] = item.path && arr.push(item))
-    return arr
-  }, [])
+    is[item.path] ? null : (is[item.path] = item.path && arr.push(item));
+    return arr;
+  }, []);
 
   tagList.value.forEach((item, index) => {
     if (item.path === path) {
-      getActiveBoxStyle(index)
+      getActiveBoxStyle(index);
     }
-  })
-  if (flag) router.push(path)
-}
+  });
+  if (flag) {
+    router.push(path)
+    activeMenu.value = ''
+  };
+};
 
 const changTab = ({ path, title }, i) => {
-  getActiveBoxStyle(i)
-  router.push(path)
-  activeMenu.value = path
-  sessionStorage.setItem('refreshTab', JSON.stringify({ path, title }))
-}
+  getActiveBoxStyle(i);
+  router.push(path);
+  activeMenu.value = path;
+  sessionStorage.setItem("refreshTab", JSON.stringify({ path, title }));
+};
 
 const closeTab = (path, index) => {
   tagList.value.forEach((item, i) => {
-    if (item.path === route.path.split('/')[1]) {
+    if (item.path === route.path.split("/")[1]) {
       if (index < i) {
         nextTick(() => {
-          activeBoxStyle.transform = `translateX(${spanList.value[i].offsetLeft - spanList.value[index].clientWidth}px)`
-        })
+          activeBoxStyle.transform = `translateX(${spanList.value[i].offsetLeft - spanList.value[index].clientWidth
+            }px)`;
+        });
       }
     }
-  })
-  tagList.value.splice(index, 1)
+  });
+  tagList.value.splice(index, 1);
   tagList.value.forEach((item, i) => {
-    if (item.path === route.path.split('/')[1]) {
+    if (item.path === route.path.split("/")[1]) {
       nextTick(() => {
-        activeBoxStyle.width = spanList.value[i].clientWidth + 'px'
-      })
+        activeBoxStyle.width = spanList.value[i].clientWidth + "px";
+      });
     }
-  })
+  });
 
-  if (path === route.path.split('/')[1]) {
+  if (path === route.path.split("/")[1]) {
     if (index > 0) {
-      router.push(tagList.value[index - 1])
-      activeMenu.value = tagList.value[index - 1].path
-      getActiveBoxStyle(index - 1)
-
+      router.push(tagList.value[index - 1]);
+      activeMenu.value = tagList.value[index - 1].path;
+      getActiveBoxStyle(index - 1);
     } else {
-      router.push(tagList.value[index])
-      activeMenu.value = tagList.value[index].path
-      getActiveBoxStyle(index)
+      router.push(tagList.value[index]);
+      activeMenu.value = tagList.value[index].path;
+      getActiveBoxStyle(index);
     }
   }
-}
+};
 
 const getRefreshTab = () => {
-  const refreshTab = JSON.parse(sessionStorage.getItem('refreshTab')) || null
+  const refreshTab = JSON.parse(sessionStorage.getItem("refreshTab")) || null;
   if (refreshTab) {
-    tagList.value.push(refreshTab)
-    activeMenu.value = refreshTab.path
+    tagList.value.push(refreshTab);
+    if (refreshTab.path === 'message' || refreshTab.path === 'user') activeMenu.value = ''
+    else activeMenu.value = refreshTab.path;
   } else {
-    tagList.value.push(
-      {
-        path: 'home',
-        title: '首页'
-      }
-    )
-    activeMenu.value = 'home'
+    tagList.value.push({
+      path: "home",
+      title: "首页",
+    });
+    activeMenu.value = "home";
   }
-}
-getRefreshTab()
+};
+getRefreshTab();
 
 const getActiveBoxStyle = (index) => {
   nextTick(() => {
-    activeBoxStyle.width = spanList.value[index].clientWidth + 'px'
-    activeBoxStyle.transform = `translateX(${spanList.value[index].offsetLeft}px)`
-  })
-}
+    activeBoxStyle.width = spanList.value[index].clientWidth + "px";
+    activeBoxStyle.transform = `translateX(${spanList.value[index].offsetLeft}px)`;
+    scrollbarRef.value.setScrollLeft(spanList.value[index].offsetLeft)
+  });
+};
 
-getActiveBoxStyle(0)
+getActiveBoxStyle(0);
 
 const seeDate = () => {
-  drawer.value = true
-}
+  drawer.value = true;
+};
 const handleClose = (e) => {
-  drawer.value = e
-}
+  drawer.value = e;
+};
 const handleScreenFull = () => {
-  screenfull.toggle()
-}
+  screenfull.toggle();
+};
 const loginOut = () => {
-  removeToken()
-  store.setToken(null)
-}
+  removeToken();
+  store.setToken(null);
+};
 </script>
 <style scoped lang="scss">
 .el-container {
@@ -272,7 +279,7 @@ const loginOut = () => {
     margin: 16px 0 16px 16px;
     box-shadow: 0 0 10px #ccc;
     background-color: #fff;
-    transition: all .3s;
+    transition: all 0.3s;
 
     .el-menu-vertical-demo {
       border-right: none;
@@ -297,7 +304,6 @@ const loginOut = () => {
       i {
         cursor: pointer;
       }
-
     }
   }
 
@@ -310,12 +316,15 @@ const loginOut = () => {
       display: flex;
       align-items: center;
       position: relative;
+      width: calc(100% - 200px);
 
       span {
+        flex-shrink: 0;
         padding: 0 8px;
         height: 40px;
-        opacity: .7;
+        opacity: 0.7;
         font-size: 12px;
+        float: left;
         display: flex;
         align-items: center;
         cursor: pointer;
@@ -333,7 +342,6 @@ const loginOut = () => {
             background-color: #ccc;
           }
         }
-
       }
 
       .box {
@@ -343,7 +351,7 @@ const loginOut = () => {
         box-shadow: 0 0 10px #ccc;
         height: 40px;
         border-radius: 4px;
-        transition: all .4s;
+        transition: all 0.4s;
       }
     }
 
@@ -363,7 +371,6 @@ const loginOut = () => {
         cursor: pointer;
       }
     }
-
   }
 
   .el-main {

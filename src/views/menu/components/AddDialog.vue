@@ -1,8 +1,13 @@
 <template>
-    <el-dialog v-model="dialogVisible" :title="title" width="50%" :before-close="handleClose">
+    <el-dialog v-model="dialogVisible" :title="title" width="55%" :before-close="handleClose">
         <el-form :inline="true" :model="form" label-width="120px">
             <el-form-item label="上级菜单">
-                <el-select v-model="form.value" class="m-2" placeholder="请选择上级菜单">
+                <el-select v-model="form.value" placeholder="请选择上级菜单">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+            </el-form-item>
+            <el-form-item label="菜单图标">
+                <el-select v-model="form.value" placeholder="请选择上级菜单">
                     <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
             </el-form-item>
@@ -20,9 +25,6 @@
                     <el-radio border label="1">显示</el-radio>
                     <el-radio border label="2">隐藏</el-radio>
                 </el-radio-group>
-            </el-form-item>
-            <el-form-item label="意见：">
-                <el-input v-model="form.textarea1" autosize type="textarea" placeholder="请输入意见" />
             </el-form-item>
         </el-form>
         <template #footer>

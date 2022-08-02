@@ -51,10 +51,8 @@
         <el-table-column prop="code" label="邮编" align="center" />
         <el-table-column label="操作" align="center">
             <template #="scope">
-                <el-button-group>
                     <EditButton @edit="handleEdit" />
                     <DeleteButton @delete="handleDelete(scope.$index)" />
-                </el-button-group>
             </template>
         </el-table-column>
     </el-table>
@@ -96,7 +94,6 @@ const handelTableData = () => {
     const start = pageSize.value * (currentPage.value - 1)
     const end = pageSize.value * currentPage.value
     tableData.value = list.value.slice(start, end)
-    console.log(tableData.value);
 }
 watch([pageSize, currentPage], () => {
     handelTableData()

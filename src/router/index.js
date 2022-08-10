@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { getToken } from '../utils/token'
 const isRouter = (url, next) => {
-    const token = getToken() || null
+    const token = getToken()
     token ? next() : next('/login')
 }
 export const childrenRoutes = [

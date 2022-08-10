@@ -31,7 +31,7 @@
           <span>
             <el-icon :size="20">
               <Tickets />
-            </el-icon>下单人数
+            </el-icon>注册人数
           </span>
         </template>
         3389 人

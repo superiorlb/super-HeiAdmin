@@ -53,9 +53,9 @@
           <el-sub-menu index="shop">
             <template #title>
               <el-icon>
-                <Shop />
+                <Setting />
               </el-icon>
-              <span>商城管理</span>
+              <span>系统管理</span>
             </template>
             <el-menu-item index="order">
               <template #title>

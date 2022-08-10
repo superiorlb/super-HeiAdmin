@@ -46,7 +46,6 @@ const Login = async () => {
                     title: `${res.data.time}`,
                     message: ` Hello ${res.data.name} 欢迎回来！ `,
                     offset: 100,
-                    duration:0
                 })
             } else {
                 ElNotification({

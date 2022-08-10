@@ -2,7 +2,13 @@
 
 ### 项目介绍
 
-学习 vue3，搭建的一个后台管理系统
+基于 vue3、vite、element-plus ，搭建的一个后台管理系统，数据都是mock生成的假数据，仅供展示
+
+### 项目界面
+
+<img src="./src/assets/img/home.jpg" style="zoom:40%;" />
+
+<img src="./src/assets/img/role.jpg" style="zoom:40%;" />
 
 ### 安装项目依赖
 
@@ -32,6 +38,7 @@ npm run build:dev
 | vue-router   | 路由管理        | 4.1.2  | https://router.vuejs.org/zh/index.html     |
 | pinia        | 全局状态管理    | 2.0.16 | https://pinia.web3doc.top/                 |
 | element-plus | 前端 UI 框架    | 2.2.9  | https://element-plus.gitee.io/zh-CN/       |
+| vite         | 打包工具        | 3.0.0  | https://vitejs.cn/                         |
 | axios        | 前端 http 库    | 0.27.2 | http://www.axios-js.com/                   |
 | echarts      | 可视化图表库    | 5.3.3  | https://echarts.apache.org/zh/index.html   |
 | mockjs       | 假数据生成工具  | 1.1.0  | http://mockjs.com/                         |

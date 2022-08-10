@@ -2,13 +2,11 @@
 
 ### 项目介绍
 
-基于 vue3、vite、element-plus ，搭建的一个后台管理系统
+基于 vue3、vite、element-plus ，搭建的一个后台管理系统，数据都是mock生成的假数据，仅供展示
 
 ### 项目界面
 
 <img src="./src/assets/img/home.jpg" style="zoom:40%;" />
-
-<img src="./src/assets/img/admin.jpg" style="zoom:40%;" />
 
 <img src="./src/assets/img/role.jpg" style="zoom:40%;" />
 

@@ -58,7 +58,7 @@
         </el-table-column>
     </el-table>
     <div class="pagination">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :page-sizes="[10, 20, 30, 40]"
+        <el-pagination background v-model:currentPage="currentPage" v-model:page-size="pageSize" :page-sizes="[10, 20, 30, 40]"
             layout="total, sizes, prev, pager, next, jumper" :total="list.length" @size-change="handleSizeChange"
             @current-change="handleCurrentChange" />
     </div>
@@ -150,8 +150,4 @@ const handleDelete = (index) => {
     }
 }
 
-.pagination {
-    display: flex;
-    justify-content: flex-end;
-}
 </style>

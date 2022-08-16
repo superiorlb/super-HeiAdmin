@@ -16,6 +16,7 @@
     "echarts": "^5.3.3",
     "element-plus": "^2.2.9",
     "js-cookie": "^3.0.1",
+    "js-export-excel": "^1.1.4",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.16",

@@ -140,9 +140,4 @@ watch([pageSize, currentPage], () => {
         box-sizing: border-box;
     }
 }
-
-.pagination {
-    display: flex;
-    justify-content: flex-end;
-}
 </style>

@@ -36,6 +36,7 @@
                     <el-form-item>
                         <el-button :icon="Search" type="primary" @click="onSubmit">Search</el-button>
                         <el-button :icon="Brush" type="primary" @click="onSubmit">Rest</el-button>
+                        <el-button :icon="Printer" type="primary" @click="exportList">导出</el-button>
                     </el-form-item>
                 </el-form>
             </el-card>
@@ -66,8 +67,9 @@
 </template>
 <script setup>
 import { reactive, ref, onMounted, watch } from 'vue'
-import { Search, Brush, View } from '@element-plus/icons-vue'
-import { getOrderList } from '../../api/index.js';
+import { Search, Brush, View, Printer } from '@element-plus/icons-vue'
+import { getOrderList } from '../../api/index.js'
+import exportExcel from '@/utils/exportExcel'
 const formInline = reactive({
     user: '',
     region: '',
@@ -104,6 +106,10 @@ const handelTableData = () => {
 watch([pageSize, currentPage], () => {
     handelTableData()
 })
+
+const exportList = () => {
+    exportExcel('订单列表', Array.from(list.value))
+}
 </script>
 <style scoped lang="scss">
 .search {
@@ -124,10 +130,5 @@ watch([pageSize, currentPage], () => {
     .el-card__body {
         box-sizing: border-box;
     }
-}
-
-.pagination {
-    display: flex;
-    justify-content: flex-end;
 }
 </style>

@@ -87,7 +87,6 @@ nextTick(() => {
 .el-card {
   cursor: pointer;
   transition: all .5s ease;
-  height: 140px;
 
   span {
     display: flex;
@@ -107,6 +106,5 @@ nextTick(() => {
 
 
   }
-
 }
 </style>

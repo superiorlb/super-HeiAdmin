@@ -149,8 +149,4 @@ const handleDelete = (index) => {
     }
 }
 
-.pagination {
-    display: flex;
-    justify-content: flex-end;
-}
 </style>

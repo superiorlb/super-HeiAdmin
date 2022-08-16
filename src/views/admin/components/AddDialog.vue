@@ -5,7 +5,7 @@
                 <el-input v-model="form.name" placeholder="请输入名称" style="width:240px" clearable />
             </el-form-item>
             <el-form-item label="密码：">
-                <el-input v-model="form.password" placeholder="请输入密码" style="width:240px" clearable show-password />
+                <el-input v-model="form.password" placeholder="请输入密码" autocomplete="off" style="width:240px" clearable  show-password/>
             </el-form-item>
             <el-form-item label="上传头像：">
                 <el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
@@ -20,7 +20,7 @@
                 <el-tree v-model="form.type" :data="data" :props="defaultProps" show-checkbox />
             </el-form-item>
             <el-form-item label="联系方式：">
-                <el-input v-model="form.name" placeholder="请输入联系方式" style="width:240px" clearable />
+                <el-input v-model="form.phone" placeholder="请输入联系方式" style="width:240px" clearable />
             </el-form-item>
             <el-form-item label="意见：">
                 <el-input v-model="form.textarea1" autosize type="textarea" placeholder="请输入意见" />
@@ -49,13 +49,14 @@ const props = defineProps({
 })
 const emits = defineEmits(['handleClose'])
 const form = reactive({
-    name: '',
-    password: '',
+    name: null,
+    password: null,
     code: '',
     address: '',
     textarea1: '',
     type: [],
-    url: ''
+    url: '',
+    phone:null
 })
 const handleClose = () => {
     emits('handleClose', false)

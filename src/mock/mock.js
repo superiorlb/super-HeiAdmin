@@ -1,5 +1,5 @@
 import { Random, setup, mock } from "mockjs";
-const Base_Url = 'http://localhost:4000'
+const Base_Url = import.meta.env.VITE_BASE_URL
 setup({
     timeout: 1000
 })

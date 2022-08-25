@@ -1,7 +1,7 @@
 <template>
     <el-popconfirm @confirm="confirm" title="确认删除吗?" confirm-button-text="是" cancel-button-text="否">
         <template #reference>
-            <el-button :size="size" :type="type" :icon="Delete">
+            <el-button :text="text" :size="size" :type="type" :icon="icon">
                 <slot></slot>
             </el-button>
         </template>
@@ -11,6 +11,7 @@
 /**
  * @param {String} size large || default || small 
  * @param {String} type default || danger || primary || warning
+ * @param {Boolean} text true || false 
  */
 import { Delete } from '@element-plus/icons-vue'
 const props = defineProps({
@@ -21,6 +22,13 @@ const props = defineProps({
     type: {
         type: String,
         default: 'danger'
+    },
+    icon: {
+        default: Delete
+    },
+    text: {
+        type: Boolean,
+        default: false
     }
 })
 const emits = defineEmits(['delete'])

@@ -44,7 +44,11 @@
     <el-button style="margin:15px 0" type="primary" :icon="Avatar" @click="handleAdd">新增管理员</el-button>
     <el-table :data="tableData" border style="width: 100%;margin-bottom;:15px" v-loading="loading">
         <el-table-column type="index" label="序号" width="180" align="center" />
-        <el-table-column prop="name" label="姓名" width="180" align="center" />
+        <el-table-column label="姓名" width="180" align="center">
+            <template #="scope">
+                <el-tag>{{ scope.row.name }}</el-tag>
+            </template>
+        </el-table-column>
         <el-table-column prop="id" label="ID" width="180" align="center" />
         <el-table-column prop="date" label="出生日期" width="180" align="center" />
         <el-table-column prop="address" label="地址" align="center" />
@@ -58,9 +62,9 @@
         </el-table-column>
     </el-table>
     <div class="pagination">
-        <el-pagination background v-model:currentPage="currentPage" v-model:page-size="pageSize" :page-sizes="[10, 20, 30, 40]"
-            layout="total, sizes, prev, pager, next, jumper" :total="list.length" @size-change="handleSizeChange"
-            @current-change="handleCurrentChange" />
+        <el-pagination background v-model:currentPage="currentPage" v-model:page-size="pageSize"
+            :page-sizes="[10, 20, 30, 40]" layout="total, sizes, prev, pager, next, jumper" :total="list.length"
+            @size-change="handleSizeChange" @current-change="handleCurrentChange" />
     </div>
     <AddDialog :title="title" :dialogVisible="dialogVisible" @handleClose="handleClose" />
 </template>
@@ -149,5 +153,4 @@ const handleDelete = (index) => {
         box-sizing: border-box;
     }
 }
-
 </style>

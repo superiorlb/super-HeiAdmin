@@ -1,6 +1,8 @@
 <template>
     <el-descriptions title="基本信息" direction="vertical" :column="4" size="default" border>
-        <el-descriptions-item label="Username">曹长卿</el-descriptions-item>
+        <el-descriptions-item label="Username">
+            <el-tag>曹长卿</el-tag>
+        </el-descriptions-item>
         <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
         <el-descriptions-item label="Place" :span="2">浙江省杭州市</el-descriptions-item>
         <el-descriptions-item label="Remarks">

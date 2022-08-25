@@ -32,13 +32,13 @@
         </el-collapse-item>
     </el-collapse>
     <el-button style="margin-top:15px" type="primary" :icon="Plus" @click="handleAdd">新增菜单</el-button>
-    <el-table v-loading="loading" :data="tableData" border style="width: 100%;margin:15px 0"
-        :indent="10" :tree-props="defaultProps" row-key="id">
+    <el-table v-loading="loading" :data="tableData" border style="width: 100%;margin:15px 0" :indent="10"
+        :tree-props="defaultProps" row-key="id">
         <el-table-column prop="name" label="菜单名称" align="center" />
         <el-table-column prop="icon" label="菜单图标" align="center" />
         <el-table-column label="是否隐藏" align="center">
             <template #="scope">
-                <el-tag effect="dark" :type="scope.row.is ? 'success' : 'danger'">{{ scope.row.is ? '是' : '否' }}
+                <el-tag :type="scope.row.is ? '' : 'danger'">{{ scope.row.is ? '是' : '否' }}
                 </el-tag>
             </template>
         </el-table-column>
@@ -46,8 +46,8 @@
         <el-table-column prop="url" label="路由地址" align="center" />
         <el-table-column label="操作" align="center">
             <template #="scope">
-                    <EditButton @edit="handleEdit" />
-                    <DeleteButton @delete="handleDelete(scope.$index)" />
+                <EditButton @edit="handleEdit" />
+                <DeleteButton @delete="handleDelete(scope.$index)" />
             </template>
         </el-table-column>
     </el-table>
@@ -139,10 +139,5 @@ watch([pageSize, currentPage], () => {
     .el-card__body {
         box-sizing: border-box;
     }
-}
-
-.pagination {
-    display: flex;
-    justify-content: flex-end;
 }
 </style>

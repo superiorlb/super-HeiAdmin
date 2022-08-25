@@ -17,4 +17,9 @@ body,
     width: 100%;
     height: 100%;
 }
+.pagination {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
 </style>

@@ -20,7 +20,7 @@
                 <el-tree v-model="form.type" :data="data" :props="defaultProps" show-checkbox />
             </el-form-item>
             <el-form-item label="联系方式：">
-                <el-input v-model="form.name" placeholder="请输入联系方式" style="width:240px" clearable />
+                <el-input v-model="form.phone" placeholder="请输入联系方式" style="width:240px" clearable />
             </el-form-item>
             <el-form-item label="意见：">
                 <el-input v-model="form.textarea1" autosize type="textarea" placeholder="请输入意见" />
@@ -54,7 +54,7 @@ const form = reactive({
     code: '',
     address: '',
     textarea1: '',
-    type: [],
+    phone: null,
     url: ''
 })
 const handleClose = () => {

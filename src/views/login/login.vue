@@ -12,7 +12,7 @@
                 <el-icon :size="20">
                     <Unlock />
                 </el-icon>
-                <el-input v-model.trim="user.password" placeholder="请输入用户密码" type="password" show-password clearable
+                <el-input v-model.trim="user.password" placeholder="请输入用户密码" show-password clearable
                     @keydown.enter="Login" />
             </p>
             <p>

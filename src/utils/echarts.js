@@ -188,4 +188,5 @@ const setEcharts = () => {
     };
     option && myChart.setOption(option);
 }
+
 export default setEcharts

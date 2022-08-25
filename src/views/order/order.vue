@@ -36,6 +36,7 @@
                     <el-form-item>
                         <el-button :icon="Search" type="primary" @click="onSubmit">Search</el-button>
                         <el-button :icon="Brush" type="primary" @click="onSubmit">Rest</el-button>
+                        <el-button :icon="Printer" type="primary" @click="exportList">导出</el-button>
                     </el-form-item>
                 </el-form>
             </el-card>
@@ -50,7 +51,11 @@
                 {{ scope.row.money + '￥' }}
             </template>
         </el-table-column>
-        <el-table-column prop="name" label="用户名称" align="center" />
+        <el-table-column label="用户名称" align="center">
+            <template #="scope">
+                <el-tag>{{ scope.row.name }}</el-tag>
+            </template>
+        </el-table-column>
         <el-table-column prop="address" label="收货地址" align="center" />
         <el-table-column label="操作" align="center">
             <template #="scope">
@@ -66,8 +71,9 @@
 </template>
 <script setup>
 import { reactive, ref, onMounted, watch } from 'vue'
-import { Search, Brush, View } from '@element-plus/icons-vue'
-import { getOrderList } from '../../api/index.js';
+import { Search, Brush, View, Printer } from '@element-plus/icons-vue'
+import { getOrderList } from '../../api/index.js'
+import exportExcel from '@/utils/exportExcel'
 const formInline = reactive({
     user: '',
     region: '',
@@ -104,6 +110,10 @@ const handelTableData = () => {
 watch([pageSize, currentPage], () => {
     handelTableData()
 })
+
+const exportList = () => {
+    exportExcel('订单列表', Array.from(list.value))
+}
 </script>
 <style scoped lang="scss">
 .search {
@@ -124,10 +134,5 @@ watch([pageSize, currentPage], () => {
     .el-card__body {
         box-sizing: border-box;
     }
-}
-
-.pagination {
-    display: flex;
-    justify-content: flex-end;
 }
 </style>

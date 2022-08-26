@@ -2,22 +2,10 @@
     <div id="main">
         <div class="content">
             <h1>HeiAdmin</h1>
-            <p>
-                <el-icon :size="20">
-                    <User />
-                </el-icon>
-                <el-input v-model.trim="user.name" placeholder="请输入用户名" clearable />
-            </p>
-            <p>
-                <el-icon :size="20">
-                    <Unlock />
-                </el-icon>
-                <el-input v-model.trim="user.password" placeholder="请输入用户密码" show-password clearable
-                    @keydown.enter="Login" />
-            </p>
-            <p>
-                <el-button type="primary" @click="Login">登 录</el-button>
-            </p>
+            <el-input v-model.trim="user.name" :prefix-icon="User" placeholder="请输入用户名" clearable />
+            <el-input v-model.trim="user.password" :prefix-icon="Unlock" placeholder="请输入用户密码" show-password clearable
+                @keydown.enter="Login" />
+            <el-button type="primary" @click="Login">登 录</el-button>
         </div>
     </div>
 </template>
@@ -28,6 +16,7 @@ import { ElNotification } from 'element-plus'
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useTokenStore } from '../../store/index'
+import { User, Unlock } from '@element-plus/icons-vue'
 const user = reactive({
     name: null,
     password: null
@@ -88,24 +77,22 @@ const Login = async () => {
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
-        h1{
+
+        h1 {
             color: #409eff;
         }
 
-        p {
-            display: flex;
-            align-items: center;
+        display: flex;
+        align-items: center;
 
-            .el-input {
-                width: 240px;
-                margin-left: 5px;
-            }
+        .el-input {
+            width: 250px;
+        }
 
-            .el-button {
-                width: 200px;
-                border-radius: 15px;
+        .el-button {
+            width: 250px;
+            border-radius: 15px;
 
-            }
         }
     }
 }

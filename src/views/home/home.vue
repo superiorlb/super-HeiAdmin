@@ -66,7 +66,7 @@
             </span>
           </div>
         </template>
-        <el-scrollbar height="300px">
+        <el-scrollbar height="300px" v-loading="loading">
           <div v-for="(item, index) in list" :key="index">
             <div class="order">
               <el-tag> {{ item.name }} </el-tag>
@@ -82,7 +82,7 @@
     </el-col>
   </el-row>
   <el-tabs v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane label="今日订单" name="order">
+    <el-tab-pane label="今日订单" name="order" v-loading="loading">
       <el-scrollbar height="400px">
         <el-row class="bottom-content">
           <el-col :span="24" v-for="(item, index) in list" :key="index">
@@ -117,14 +117,16 @@ const bodyStyle = {
 }
 const list = ref([])
 const activeName = ref('order')
-
+const loading=ref(false)
 const handleClick = (tab, event) => {
 }
 nextTick(() => {
   setEcharts()
 })
 const getList = async () => {
+  loading.value=true
   const res = await getOrderList()
+  loading.value=false
   const { data } = res
   list.value = data
 }

@@ -1,5 +1,5 @@
 <template>
-  <el-row :gutter="24" class="top-content">
+  <el-row :gutter="12" class="top-content">
     <el-col :span="6">
       <el-card shadow="never" :body-style="bodyStyle">
         <template #header>
@@ -50,7 +50,7 @@
       </el-card>
     </el-col>
   </el-row>
-  <el-row :gutter="24" class="center-content">
+  <el-row :gutter="12" class="center-content">
     <el-col :span="18">
       <div id="main"></div>
     </el-col>
@@ -59,26 +59,23 @@
         <template #header>
           <div class="header-title">
             <el-icon>
-              <Histogram />
+              <Odometer />
             </el-icon>
             <span>
-              Order Today
+              Dashboard
             </span>
           </div>
         </template>
-        <el-scrollbar height="300px" v-loading="loading">
-          <div v-for="(item, index) in list" :key="index">
-            <div class="order">
-              <el-tag> {{ item.name }} </el-tag>
-              <span>
-                {{ item.time }}
-              </span>
-              <el-tag type="success"> ￥{{ item.money }} </el-tag>
-            </div>
-            <el-divider />
-          </div>
-        </el-scrollbar>
+        <div id="dashboard"></div>
       </el-card>
+    </el-col>
+  </el-row>
+  <el-row gutter="12">
+    <el-col :span="12">
+      <div id="left"></div>
+    </el-col>
+    <el-col :span="12">
+      <div id="right"></div>
     </el-col>
   </el-row>
   <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -108,7 +105,7 @@
 </template>
 <script setup>
 import { ref, nextTick, onMounted } from 'vue';
-import setEcharts from '@/utils/echarts.js'
+import { setEcharts, setDashboard, setLeft, setRight } from '@/utils/echarts.js'
 import { getOrderList } from '../../api';
 const bodyStyle = {
   'font-size': '22px',
@@ -117,16 +114,19 @@ const bodyStyle = {
 }
 const list = ref([])
 const activeName = ref('order')
-const loading=ref(false)
+const loading = ref(false)
 const handleClick = (tab, event) => {
 }
 nextTick(() => {
   setEcharts()
+  setDashboard()
+  setLeft()
+  setRight()
 })
 const getList = async () => {
-  loading.value=true
+  loading.value = true
   const res = await getOrderList()
-  loading.value=false
+  loading.value = false
   const { data } = res
   list.value = data
 }
@@ -150,6 +150,41 @@ onMounted(getList())
   }
 }
 
+#dashboard {
+  width: 100%;
+  height: 300px;
+  box-shadow: 0 14px 24px #ccc;
+
+}
+
+#left,
+#right {
+  width: 100%;
+  height: 320px;
+}
+
+#left,
+#right,
+#dashboard,
+#main {
+  background-color: #fff;
+  padding: 15px;
+  cursor: pointer;
+  transition: all .5s ease;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+}
+
+#left,
+#right,
+#main{
+  &:hover {
+    box-shadow: 0 14px 24px #ccc;
+    transform: scale(1.02);
+
+  }
+}
 .el-row {
   margin-bottom: 15px;
 }
@@ -184,6 +219,8 @@ onMounted(getList())
 
     .header-title {
       display: flex;
+      color: #409eff;
+      justify-content: center;
       align-items: center;
 
       .el-icon {

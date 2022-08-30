@@ -70,7 +70,7 @@
       </el-card>
     </el-col>
   </el-row>
-  <el-row gutter="12">
+  <el-row :gutter="12">
     <el-col :span="12">
       <div id="left"></div>
     </el-col>
@@ -81,7 +81,7 @@
   <el-tabs v-model="activeName" @tab-click="handleClick">
     <el-tab-pane label="今日订单" name="order" v-loading="loading">
       <el-scrollbar height="400px">
-        <el-row class="bottom-content">
+        <el-row :gutter="12" class="bottom-content">
           <el-col :span="24" v-for="(item, index) in list" :key="index">
             <el-card shadow="never">
               <div class="wrap">

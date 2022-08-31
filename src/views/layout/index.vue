@@ -19,8 +19,8 @@
 import Sidebar from "./components/sidebar.vue";
 import Header from "./components/header.vue";
 </script>
-<style lang="scss" scoped>
-.el-container {
-  height: 100vh;
+<style lang="scss">
+.el-container{
+  height: 100%;
 }
 </style>

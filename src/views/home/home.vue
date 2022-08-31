@@ -81,7 +81,7 @@
   <el-tabs v-model="activeName" @tab-click="handleClick">
     <el-tab-pane label="今日订单" name="order" v-loading="loading">
       <el-scrollbar height="400px">
-        <el-row :gutter="12" class="bottom-content">
+        <el-row class="bottom-content">
           <el-col :span="24" v-for="(item, index) in list" :key="index">
             <el-card shadow="never">
               <div class="wrap">
@@ -136,18 +136,6 @@ onMounted(getList())
 #main {
   width: 100%;
   height: 400px;
-  background-color: #fff;
-  padding: 15px;
-  cursor: pointer;
-  transition: all .5s ease;
-  border-radius: 5px;
-  box-sizing: border-box;
-
-  &:hover {
-    box-shadow: 0 14px 24px #ccc;
-    transform: scale(1.02);
-
-  }
 }
 
 #dashboard {
@@ -224,7 +212,6 @@ onMounted(getList())
       align-items: center;
 
       .el-icon {
-        /* color: #1489EE; */
         font-size: 20px;
         margin-right: 5px;
       }

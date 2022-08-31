@@ -10,10 +10,8 @@
     <el-scrollbar>
       <el-menu
         active-text-color="#409eff"
-        background-color="#fff"
         class="el-menu-vertical-demo"
         :default-active="route.path.split('/')[1]"
-        text-color="#000"
         unique-opened
         router
         :collapse="isCollapse"

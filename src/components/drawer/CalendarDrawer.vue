@@ -15,7 +15,8 @@
 const props = defineProps({
     show: {
         type: Boolean,
-        default: false
+        default: false,
+        required:true
     }
 })
 const emits = defineEmits(['close'])

@@ -70,7 +70,7 @@
       </el-card>
     </el-col>
   </el-row>
-  <el-row gutter="12">
+  <el-row :gutter="12">
     <el-col :span="12">
       <div id="left"></div>
     </el-col>
@@ -136,18 +136,6 @@ onMounted(getList())
 #main {
   width: 100%;
   height: 400px;
-  background-color: #fff;
-  padding: 15px;
-  cursor: pointer;
-  transition: all .5s ease;
-  border-radius: 5px;
-  box-sizing: border-box;
-
-  &:hover {
-    box-shadow: 0 14px 24px #ccc;
-    transform: scale(1.02);
-
-  }
 }
 
 #dashboard {
@@ -224,7 +212,6 @@ onMounted(getList())
       align-items: center;
 
       .el-icon {
-        /* color: #1489EE; */
         font-size: 20px;
         margin-right: 5px;
       }

@@ -28,7 +28,7 @@
       <el-icon :size="24" @click="handleScreenFull">
         <FullScreen />
       </el-icon>
-      <el-icon :size="24">
+      <el-icon :size="24" @click="checkDay">
         <Calendar />
       </el-icon>
       <el-dropdown @command="handleCommand">
@@ -44,6 +44,7 @@
       </el-dropdown>
     </div>
   </el-header>
+  <CalendarDrawer :show="show" @close="handleClose" />
 </template>
 <script setup>
 import { ref, reactive, watch, nextTick } from "vue";
@@ -52,6 +53,7 @@ import screenfull from "screenfull";
 import { removeToken } from "../../../utils/token";
 import { useTokenStore } from "../../../store";
 import { childrenRoutes } from "../../../router";
+import CalendarDrawer from "../../../components/drawer/CalendarDrawer.vue";
 const activeBoxStyle = reactive({
   width: "0",
   transform: "translateX(0px)",
@@ -66,6 +68,7 @@ const tagList = ref([]);
 const spanList = ref();
 const activeIndex = ref(0);
 const scrollbarRef = ref();
+const show = ref(false);
 watch(
   () => route.path,
   (nVal) => {
@@ -150,6 +153,12 @@ const handleActiveIndex = () => {
       activeIndex.value = index;
     }
   });
+};
+const handleClose = (e) => {
+  show.value = e;
+};
+const checkDay = () => {
+  show.value = true;
 };
 </script>
 <style lang="scss" scoped>

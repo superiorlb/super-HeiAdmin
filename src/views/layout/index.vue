@@ -9,9 +9,17 @@
             <Fold v-show="!off" />
           </el-icon>
         </div>
-        <el-menu active-text-color="#409eff" background-color="#fff" class="el-menu-vertical-demo"
-          :default-active="activeMenu" text-color="#000" unique-opened router :collapse="off"
-          @select="handleSelect($event)">
+        <el-menu
+          active-text-color="#409eff"
+          background-color="#fff"
+          class="el-menu-vertical-demo"
+          :default-active="activeMenu"
+          text-color="#000"
+          unique-opened
+          router
+          :collapse="off"
+          @select="handleSelect($event)"
+        >
           <el-menu-item index="home">
             <el-icon>
               <Odometer />
@@ -81,9 +89,17 @@
       <el-header>
         <el-scrollbar ref="scrollbarRef">
           <div class="navTab">
-            <span v-for="(item, index) in tagList" :key="index" @click="changTab(item, index)" ref="spanList">
+            <span
+              v-for="(item, index) in tagList"
+              :key="index"
+              @click="changTab(item, index)"
+              ref="spanList"
+            >
               {{ item.title }}
-              <el-icon @click.stop="closeTab(item.path, index)" v-show="tagList.length > 1">
+              <el-icon
+                @click.stop="closeTab(item.path, index)"
+                v-show="tagList.length > 1"
+              >
                 <Close />
               </el-icon>
             </span>
@@ -103,7 +119,9 @@
             <Calendar />
           </el-icon>
           <el-dropdown @command="handleSelect($event, true)">
-            <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+            <el-avatar
+              src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+            />
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item command="user">查看</el-dropdown-item>
@@ -148,7 +166,7 @@ const activeBoxStyle = reactive({
 });
 const count = ref(0);
 const store = useTokenStore();
-const scrollbarRef = ref()
+const scrollbarRef = ref();
 
 const getCount = async () => {
   const res = await getMessageList();
@@ -185,9 +203,9 @@ const handleSelect = (path, flag) => {
     }
   });
   if (flag) {
-    router.push(path)
-    activeMenu.value = ''
-  };
+    router.push(path);
+    activeMenu.value = "";
+  }
 };
 
 const changTab = ({ path, title }, i) => {
@@ -202,8 +220,7 @@ const closeTab = (path, index) => {
     if (item.path === route.path.split("/")[1]) {
       if (index < i) {
         nextTick(() => {
-          activeBoxStyle.transform = `translateX(${spanList.value[i].offsetLeft - spanList.value[index].clientWidth
-            }px)`;
+          activeBoxStyle.transform = `translateX(${spanList.value[index].offsetLeft}px)`;
         });
       }
     }
@@ -234,7 +251,8 @@ const getRefreshTab = () => {
   const refreshTab = JSON.parse(sessionStorage.getItem("refreshTab")) || null;
   if (refreshTab) {
     tagList.value.push(refreshTab);
-    if (refreshTab.path === 'message' || refreshTab.path === 'user') activeMenu.value = ''
+    if (refreshTab.path === "message" || refreshTab.path === "user")
+      activeMenu.value = "";
     else activeMenu.value = refreshTab.path;
   } else {
     tagList.value.push({
@@ -250,7 +268,7 @@ const getActiveBoxStyle = (index) => {
   nextTick(() => {
     activeBoxStyle.width = spanList.value[index].clientWidth + "px";
     activeBoxStyle.transform = `translateX(${spanList.value[index].offsetLeft}px)`;
-    scrollbarRef.value.setScrollLeft(spanList.value[index].offsetLeft)
+    scrollbarRef.value.setScrollLeft(spanList.value[index].offsetLeft);
   });
 };
 
@@ -306,18 +324,17 @@ const loginOut = () => {
       }
     }
   }
-
   .el-header {
     margin: 16px 16px 0 16px;
     display: flex;
     justify-content: space-between;
-
+    .el-scrollbar {
+      width: calc(100% - 200px);
+    }
     .navTab {
       display: flex;
       align-items: center;
       position: relative;
-      width: calc(100% - 200px);
-
       span {
         flex-shrink: 0;
         padding: 0 8px;

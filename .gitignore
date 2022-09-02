@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .vscode
+# Package manager
+package-lock.json
+pnpm-lock.yaml

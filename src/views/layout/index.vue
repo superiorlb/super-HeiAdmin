@@ -16,11 +16,11 @@
   </el-container>
 </template>
 <script setup>
-import Sidebar from "./components/sidebar.vue";
-import Header from "./components/header.vue";
+import Sidebar from "./components/sidebar/sidebar.vue";
+import Header from "./components/header/header.vue";
 </script>
-<style lang="scss">
-.el-container{
+<style>
+.el-container {
   height: 100%;
 }
 </style>

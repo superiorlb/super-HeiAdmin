@@ -1,19 +1,26 @@
 <template>
-    <el-empty :image-size="800" description="404 Not Found">
-        <template #image>
-            <img src="../../assets/img/404.jpg" @click="goBackHome">
-        </template>
-    </el-empty>
+  <div>
+    <el-result
+    icon="error"
+    title="404"
+    sub-title="404 NOT FOUND"
+  >
+    <template #extra>
+      <el-button type="primary" @click="goBackHome">Back</el-button>
+    </template>
+  </el-result>
+  </div>
 </template>
 <script setup>
-import { useRouter } from 'vue-router';
-const router = useRouter()
+import { useRouter } from "vue-router";
+const router = useRouter();
 const goBackHome = () => {
-    router.push('home')
-}
+  router.push("home");
+};
 </script>
 <style scoped>
-img {
-    cursor: pointer;
-}
+  div{
+    background-color: #fff;
+    height: 100%;
+  }
 </style>

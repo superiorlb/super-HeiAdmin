@@ -6,10 +6,10 @@ const isRouter = (url, next) => {
 };
 export const childrenRoutes = [
   {
-    path: "home",
-    component: () => import("../views/home/index.vue"),
+    path: "dashboard",
+    component: () => import("../views/dashboard/index.vue"),
     meta: {
-      title: "首页",
+      title: "控制台",
     },
     beforeEnter: (to, from, next) => {
       isRouter("home", next);
@@ -95,12 +95,22 @@ export const childrenRoutes = [
       isRouter("file", next);
     },
   },
+  {
+    path: "upload",
+    component: () => import("../views/file/upload.vue"),
+    meta: {
+      title: "文件上传",
+    },
+    beforeEnter: (to, from, next) => {
+      isRouter("upload", next);
+    },
+  },
 ];
 const routes = [
   {
     path: "/",
     component: () => import("../views/layout/index.vue"),
-    redirect: "home",
+    redirect: "dashboard",
     children: [...childrenRoutes],
   },
   {
@@ -109,7 +119,7 @@ const routes = [
   },
   {
     path: "/404",
-    component: () => import("@/views/404/404.vue"),
+    component: () => import("@/views/404/index.vue"),
     beforeEnter: (to, from, next) => {
       isRouter("/404", next);
     },

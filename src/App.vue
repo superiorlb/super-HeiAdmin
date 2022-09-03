@@ -16,4 +16,7 @@
     display: flex;
     justify-content: flex-end;
 }
+.search{
+    margin-bottom: 10px;
+}
 </style>

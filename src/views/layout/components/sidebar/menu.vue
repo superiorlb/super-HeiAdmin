@@ -1,18 +1,56 @@
 <template>
   <el-scrollbar>
-    <el-menu
-      active-text-color="#409eff"
-      class="el-menu-vertical-demo"
-      :default-active="route.path.split('/')[1]"
-      unique-opened
-      router
-      :collapse="collapse"
-    >
+    <el-menu active-text-color="#409eff" class="el-menu-vertical-demo" :default-active="route.path.split('/')[1]"
+      unique-opened router :collapse="collapse">
       <el-menu-item index="dashboard">
-        <el-icon><Odometer /></el-icon>
+        <el-icon>
+          <Odometer />
+        </el-icon>
         <span>Dashboard</span>
       </el-menu-item>
-      <el-sub-menu index="setting">
+      <el-sub-menu v-for="item in menu" :key="item.path" :index="item.path">
+        <template #title>
+          <el-icon>
+            <component :is="item.icon"></component>
+          </el-icon>
+          <span>{{item.name}}</span>
+        </template>
+        <template v-if="item.level">
+          <el-sub-menu v-for="levelItem in item.level" :key="levelItem.path" :index="levelItem.path">
+            <template #title>
+              <el-icon>
+                <component :is="levelItem.icon"></component>
+              </el-icon>
+              <span>{{levelItem.name}}</span>
+            </template>
+            <template v-if="levelItem.children">
+              <el-menu-item v-for="i in levelItem.children" :index="i.path">
+                <template #title>
+                  <el-icon>
+                    <component :is="i.icon"></component>
+                  </el-icon>
+                  <span>
+                    {{i.name}}
+                  </span>
+                </template>
+              </el-menu-item>
+            </template>
+          </el-sub-menu>
+        </template>
+        <template v-if="item.children">
+          <el-menu-item v-for="i in item.children" :index="i.path">
+            <template #title>
+              <el-icon>
+                <component :is="i.icon"></component>
+              </el-icon>
+              <span>
+                {{i.name}}
+              </span>
+            </template>
+          </el-menu-item>
+        </template>
+      </el-sub-menu>
+      <!-- <el-sub-menu index="setting">
         <template #title>
           <el-icon><Setting /></el-icon>
           <span>系统管理</span>
@@ -76,12 +114,13 @@
             <span>文件上传</span>
           </template>
         </el-menu-item>
-      </el-sub-menu>
+      </el-sub-menu> -->
     </el-menu>
   </el-scrollbar>
 </template>
 <script setup>
 import { useRoute } from "vue-router";
+import menu from "../../../../mock/menu";
 const props = defineProps({
   collapse: {
     type: Boolean,

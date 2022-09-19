@@ -30,7 +30,7 @@ const Login = async () => {
                 const res = await login()
                 setToken(res.data.token)
                 store.setToken(res.data.token)
-                router.push('home')
+                router.push('dashboard')
                 ElNotification.success({
                     title: `${res.data.time}`,
                     message: ` Hello ${res.data.name} 欢迎回来！ `,

@@ -1,5 +1,5 @@
 <template>
-    <el-drawer size="40%" v-model="show" title="查看日历" :with-header="false" :before-close='handleClose'>
+    <el-drawer size="40%" v-model="visible" title="查看日历" :with-header="false" :before-close='handleClose'>
         <el-calendar>
             <template #dateCell="{ data }">
                 <p :class="data.isSelected ? 'is-selected' : ''">
@@ -12,6 +12,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 const props = defineProps({
     show: {
         type: Boolean,
@@ -19,6 +20,7 @@ const props = defineProps({
         required:true
     }
 })
+const visible = computed(()=>props.show)
 const emits = defineEmits(['close'])
 const handleClose = () => {
     emits('close', false)

@@ -83,7 +83,9 @@ const getList = async () => {
   loading.value = false;
   list.value = res.data;
 };
-onMounted(getList());
+onMounted(()=>{
+  getList()
+});
 
 const handleChang = (i) => {
   list.value[i].is = false;

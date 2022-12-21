@@ -172,7 +172,9 @@ const getCount = async () => {
   const res = await getMessageList();
   count.value = res.data.length;
 };
-onMounted(getCount());
+onMounted(()=>{
+  getCount()
+});
 const handelOff = () => {
   off.value = !off.value;
 };

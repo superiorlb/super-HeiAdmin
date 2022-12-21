@@ -94,7 +94,9 @@ const getList = async () => {
     list.value = res.data
     handelTableData()
 }
-onMounted(getList())
+onMounted(()=>{
+    getList()
+})
 const handelTableData = () => {
     const start = pageSize.value * (currentPage.value - 1)
     const end = pageSize.value * currentPage.value

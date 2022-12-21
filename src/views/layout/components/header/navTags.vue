@@ -66,13 +66,13 @@ const handleTag = (nVal) => {
 
 // 关闭标签
 const closeTag = (path, i) => {
+  tagList.value.splice(i, 1);
   handleActiveIndex();
-  if (0 < i < activeIndex.value) {
+  if ( i <= activeIndex.value) {
     nextTick(() => {
-      activeBoxStyle.transform = `translateX(${spanList.value[i].offsetLeft}px)`;
+      activeBoxStyle.transform = `translateX(${spanList.value[activeIndex.value].offsetLeft}px)`;
     });
   }
-  tagList.value.splice(i, 1);
 
   // 关闭选中时，选中前一个标签页
   if (path === route.path.split("/")[1]) {
@@ -80,7 +80,6 @@ const closeTag = (path, i) => {
   }
 
   // 当选中标签页为第一个时，需要重新获取一下选中标签页的clientWidth
-  handleActiveIndex();
   if (activeIndex.value === 0) {
     nextTick(() => {
       activeBoxStyle.width = spanList.value[0].clientWidth + "px";

@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="dialogVisible" :title="title" width="50%" :before-close="handleClose">
+    <el-dialog v-model="visible" :title="title" width="50%" :before-close="handleClose">
         <el-form :model="form" label-width="120px">
             <el-form-item label="名称：">
                 <el-input v-model="form.name" placeholder="请输入名称" style="width:240px" clearable />
@@ -35,7 +35,7 @@
     </el-dialog>
 </template>
 <script setup>
-import { reactive } from 'vue';
+import { reactive,computed } from 'vue';
 import CancelButton from '../../../components/button/CancelButton.vue';
 const props = defineProps({
     dialogVisible: {
@@ -47,6 +47,8 @@ const props = defineProps({
         default: '添加管理员'
     }
 })
+
+const visible=computed(()=>props.dialogVisible)
 const emits = defineEmits(['handleClose'])
 const form = reactive({
     name: null,

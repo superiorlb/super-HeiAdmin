@@ -130,7 +130,9 @@ const getList = async () => {
   const { data } = res
   list.value = data
 }
-onMounted(getList())
+onMounted(()=>{
+  getList()
+})
 </script>
 <style scoped lang="scss">
 #main {

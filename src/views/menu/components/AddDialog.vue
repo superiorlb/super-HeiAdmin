@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="dialogVisible" :title="title" width="55%" :before-close="handleClose">
+    <el-dialog v-model="visible" :title="title" width="55%" :before-close="handleClose">
         <el-form :inline="true" :model="form" label-width="120px">
             <el-form-item label="上级菜单">
                 <el-select v-model="form.value" placeholder="请选择上级菜单">
@@ -36,7 +36,7 @@
     </el-dialog>
 </template>
 <script setup>
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 import CancelButton from '../../../components/button/CancelButton.vue';
 const props = defineProps({
     dialogVisible: {
@@ -48,6 +48,7 @@ const props = defineProps({
         default: '新增菜单'
     }
 })
+const visible = computed(()=>props.dialogVisible)
 const emits = defineEmits(['handleClose'])
 const form = reactive({
     name: '',

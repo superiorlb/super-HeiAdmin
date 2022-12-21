@@ -2,7 +2,7 @@
 
 ### 项目介绍
 
-基于 vue3、vite、element-plus ，搭建的一个后台管理系统，数据都是mock生成的假数据，仅供展示
+基于 vue3、vite、element-plus、pinia、mock，搭建的一个的通用后台管理系统模板
 
 ### 项目界面
 
@@ -12,22 +12,34 @@
 
 ### 安装项目依赖
 
-```
-npm install
-```
+#### Node环境 
 
-### 本地开发环境启动命令，默认打开 http://localhost:4000
+[node](https://nodejs.org/en/)版本 >=12.0.0
 
-**登录账号/密码：admin/123456**
+#### 包管理器 
 
-```
-npm run dev
-```
-
-### 区分环境打包，默认开发环境打包
+推荐使用[pnpm](https://www.pnpm.cn/)
 
 ```
-npm run build:dev
+pnpm install
+```
+
+### 启动命令
+
+```
+pnpm run dev
+```
+
+`登录账号/密码` admin / 123456
+
+### 多环境打包
+
+- .env.development 开发环境
+
+- .env.production  生产环境
+
+```
+pnpm run build:prod 
 ```
 
 ### 技术栈
